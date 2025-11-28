@@ -1,0 +1,16 @@
+Ignore C++ Executables
+
+*.exe
+*.out
+mycompiler
+
+Ignore IDE/Editor settings
+
+.vscode/
+.idea/
+*.swp
+
+Ignore OS files
+
+.DS_Store
+Thumbs.db

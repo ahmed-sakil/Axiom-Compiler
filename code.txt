@@ -1,0 +1,4 @@
+// Welcome to SimpleLang
+set x = 20;
+set y = 5;
+print x / y;

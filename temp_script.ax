@@ -1,0 +1,10 @@
+// Welcome to Axiom
+// ----------------
+set x = 10;
+set y = 25;
+
+// Axiom handles precedence automatically
+set result = (x + y) * 2; 
+
+print result;
+
