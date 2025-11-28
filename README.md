@@ -1,123 +1,49 @@
-<div align="center">
+# ⚡ A X I O M
+### A High-Performance Stack-Based Compiler
 
-⚡ A X I O M
+![C++](https://img.shields.io/badge/Language-C++-00599C)
+![Python](https://img.shields.io/badge/IDE-Python-3776AB)
+![Status](https://img.shields.io/badge/Status-Active-success)
 
-High-Performance Stack-Based Compiler & Virtual Machine
+---
 
-Axiom is a custom programming language implementation featuring a hand-written recursive descent compiler and a lightweight stack-based virtual machine. It demonstrates core compiler design concepts without external dependencies.
+## 1. What is Axiom?
+Axiom is a simple but powerful programming language built from scratch. It allows you to write math-heavy code, compile it into low-level instructions, and execute it on a custom Virtual Machine.
 
-Features • Architecture • Syntax • Internals
+It is designed to show how compilers work "under the hood" without being overly complex.
 
-</div>
+---
 
-🏗 System Architecture
+## 2. Project File Structure
+Here is a guide to the files in this repository so you know what is what:
 
-Axiom follows a classic three-stage compiler pipeline. The diagram below represents the flow of data from source code to execution.
+* **`main.cpp`** (The Engine)
+    * This is the core C++ code. It contains the **Lexer** (reads text), **Parser** (understands logic), and **Virtual Machine** (runs code).
+    * *You must compile this file to make the language work.*
 
-graph LR
-    A[Source Code] -->|Lexer| B(Tokens)
-    B -->|Parser| C{Abstract Syntax Tree}
-    C -->|Code Gen| D[Bytecode Instructions]
-    D -->|Virtual Machine| E[Stack Execution]
-    E -->|Output| F[Console/IDE]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style D fill:#bbf,stroke:#333,stroke-width:2px
-    style E fill:#bfb,stroke:#333,stroke-width:2px
+* **`axiom_ide.py`** (The Interface)
+    * This is a Python script that provides a graphical window (GUI).
+    * It acts as a wrapper: it takes your text, saves it, and tells the C++ engine to run it.
 
+* **`code.txt`** (Example Code)
+    * A sample script written in the Axiom language to test if everything is working.
 
-🚀 Key Features
+---
 
-⚡ Stack-Based VM: A custom CPU simulation that uses a stack for arithmetic and logic, similar to the JVM or WebAssembly.
+## 3. How to Install & Run
 
-🧠 Recursive Descent Parser: A top-down parser that automatically handles operator precedence (PEMDAS) and nested parentheses.
+### Step 1: Build the C++ Engine
+You need to turn the C++ code into an executable program. Open your terminal in this folder and run:
 
-💾 Symbol Table Memory: Dynamic memory management allowing for variable declaration, storage, and retrieval.
-
-🛡️ Robust Error Handling: The compiler detects syntax errors (like missing semicolons) and runtime errors (like division by zero).
-
-🖥️ Hybrid Tooling: Built with a high-performance C++ backend for execution and a Python frontend for the IDE.
-
-📝 Axiom Syntax Guide
-
-Axiom is designed to be C-like but simplified for educational clarity.
-
-1. Variables & Math
-
-// Define variables using 'set'
-set width = 10;
-set height = 25;
-
-// Axiom handles complex math order-of-operations automatically
-set area = (width + height) * 2; 
-
-// Division and Subtraction support
-set result = area / 5 - 2;
-
-
-2. Output
-
-// Print results to the console
-print result;
-
-
-3. Comments
-
-// Lines starting with double-slashes are ignored by the Lexer
-set x = 100; // Inline comments work too!
-
-
-⚙ Under the Hood: Implementation
-
-The core engine is built in C++ and consists of three distinct components.
-
-1. The Lexer (Tokenizer)
-
-The Lexer scans the raw text string and groups characters into Tokens. It handles whitespace elimination and comment stripping.
-
-Input: set x = 10;
-
-Output: [TOKEN_SET], [TOKEN_ID, "x"], [TOKEN_ASSIGN], [TOKEN_INT, 10], [TOKEN_SEMI]
-
-2. The Parser (Code Generator)
-
-The Parser uses a Recursive Descent strategy. It analyzes the tokens and converts them into numbers (Bytecode) that the Virtual Machine understands.
-
-3. The Virtual Machine (The Processor)
-
-The VM acts like a CPU. It doesn't have registers (like standard CPUs); instead, it uses a Stack to do math.
-
-How the Stack Works (Visual Example)
-
-When the VM executes 10 + 5, here is what happens step-by-step:
-
-PUSH 10 → Stack: [ 10 ]
-
-PUSH 5  → Stack: [ 10, 5 ]
-
-ADD     → Pops 5 and 10, adds them, pushes 15. Stack: [ 15 ]
-
-Instruction Set Reference
-
-Math Operations
-| Command | Action | Example |
-| :--- | :--- | :--- |
-| ADD | Adds the top two numbers | 10 + 5 |
-| SUB | Subtracts the top number from the one below it | 10 - 5 |
-| MUL | Multiplies the top two numbers | 10 * 5 |
-| DIV | Divides the second number by the top number | 10 / 5 |
-
-Memory & Data
-| Command | Action | Example |
-| :--- | :--- | :--- |
-| PUSH | Puts a raw number onto the stack | 10 |
-| STORE| Saves the top number into a variable (Memory) | set x = ... |
-| LOAD | Finds a variable in Memory and puts it on the stack | ... = x |
-
-<div align="center">
-
-Star this Repo 🌟 if you find it interesting!
-
-Developed with ❤️ using C++ and Python.
-
-</div>
+```bash
+g++ main.cpp -o axiom
+Step 2: Run the Graphical IDE (Recommended)The easiest way to use Axiom is via the Python IDE.Bashpython3 axiom_ide.py
+This will open a window where you can type code and click "Run".Step 3: Run via Command Line (Optional)If you prefer the terminal, you can run scripts directly:Bash./axiom code.txt
+4. The Axiom Language SyntaxAxiom looks like a simplified version of C or JavaScript.Variable AssignmentUse the set keyword to create variables.JavaScriptset width = 10;
+set height = 20;
+Math & PrecedenceAxiom follows standard math rules (parentheses first, then multiplication, then addition).JavaScript// (10 + 20) * 2 = 60
+set area = (width + height) * 2;
+OutputUse print to show results.JavaScriptprint area;
+CommentsUse // to write notes that the compiler will ignore.JavaScript// This is a comment
+set x = 5; // This is also a comment
+5. Technical Internals (How it Works)The C++ engine converts your code into Bytecode (a list of numbers) and then processes them using a Stack.The FlowSource: 10 + 5Compiler: Generates PUSH 10, PUSH 5, ADD.Virtual Machine: Executes the stack operations.Instruction Set (OpCodes)These are the commands the Virtual Machine understands:CommandDescriptionExample LogicPUSHPuts a number onto the stackStack: [ 10 ]ADDAdds the top two numbers10 + 5 = 15SUBSubtracts the top numbers10 - 5 = 5MULMultiplies the top numbers10 * 5 = 50DIVDivides the top numbers10 / 5 = 2STORESaves top number to memoryset x = 10LOADLoads a variable from memoryprint x<div align="center"><b>Developed with ❤️ using C++ and Python</b></div>
